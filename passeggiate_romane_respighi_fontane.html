@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passeggiate Romane - Itinerari Tematici</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Georgia', serif; 
+            background: #cfb997;
+            overflow-x: hidden;
+        }
+        
+        /* === NAVIGATION BAR === */
+        #navbar {
+            background: linear-gradient(135deg, #000000 0%, #090a0b 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        #navbar h1 {
+            font-size: 1.5em;
+            color: #eeeeee;
+        }
+        
+        #nav-buttons button {
+            background: rgba(255, 255, 255, 0.8);
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #nav-buttons button:hover {
+            background: #030303;
+            transform: translateY(-2px);
+        }
+        
+        /* === VIEWS === */
+        .view {
+            display: none;
+        }
+        
+        .view.active {
+            display: block;
+        }
+        
+        /* === HOME VIEW (Selezione Itinerario) === */
+        #home-view {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .h2 {
+            font-family: 'sans-serif', Avantgarde, 'Trebuchet MS', Helvetica, sans-serif;
+        }
+
+        #home-view h2 {
+            text-align: center;
+            color: #000000;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        #home-view .subtitle {
+            text-align: center;
+            color: #000000;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .itinerari-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .itinerario-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .itinerario-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #000000;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        .card-subtitle {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .card-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #cfb997;
+        }
+        
+        .stat-label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+        
+        .card-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #000000 0%, #000000 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* === ITINERARY VIEW === */
+        #itinerary-view {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        
+        /* Timeline Sidebar */
+        #timeline-sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #000000 0%, #00000063  70%);
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+        
+        #timeline-title {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(113, 113, 113, 0.2);
+            color: #e4e4e4;
+        }
+        
+        #progress-bar {
+            background: rgba(255,255,255,0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        #progress-fill {
+            background: #cfb997;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .timeline-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .timeline-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .timeline-item.completed {
+            border-left-color: #2ecc71;
+            background: linear-gradient(135deg, #6b6763 0%, #6b6763 100%);
+        }
+        
+        .timeline-item.current {
+            border-left-color: #d3d3d3;
+            background: linear-gradient(135deg, #6b6763 0%, #6b6763 100%);
+        }
+        
+        .timeline-item.upcoming {
+            border-left-color: #95a5a6;
+            opacity: 0.6;
+        }
+        
+        .timeline-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-time {
+            font-size: 0.85em;
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .timeline-name {
+            font-size: 1em;
+            margin-top: 5px;
+        }
+        
+        .timeline-duration {
+            font-size: 0.8em;
+            color: #bdc3c7;
+            margin-top: 3px;
+        }
+        
+        /* Main Content */
+        #itinerary-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Dettagli Tappa */
+        #tappa-details {
+            height: 40%;
+            background: white;
+            padding: 30px;
+            overflow-y: auto;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #tappa-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        #tappa-numero {
+            font-size: 3em;
+            color: #cfb997;
+            font-weight: bold;
+        }
+        
+        #tappa-nome {
+            flex: 1;
+            margin: 0 20px;
+        }
+        
+        #tappa-nome h2 {
+            color: #6b6763;
+            font-size: 1.8em;
+        }
+        
+        #tappa-orario {
+            text-align: right;
+        }
+        
+        #tappa-orario .time {
+            font-size: 1.5em;
+            color: #cfb997;
+            font-weight: bold;
+        }
+        
+        #tappa-orario .moment {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        /* Esperienza Culturale */
+        .esperienza-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #000000;
+        }
+        
+        .esperienza-section h3 {
+            color: #cfb997;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Audio Player */
+        .music-player {
+            background: linear-gradient(135deg, #6b6763 0%, #6b6763 100%);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            margin: 20px 0;
+        }
+        
+        .music-player h4 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .music-player audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .music-description {
+            font-size: 0.9em;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        /* Citazione Letteraria */
+        .citazione-box {
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .citazione-text {
+            font-size: 1.1em;
+            font-style: italic;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .citazione-author {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        /* Atmosfera */
+        .atmosfera-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .atmosfera-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .atmosfera-item .icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .atmosfera-item .label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .atmosfera-item .value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        /* Navigation Buttons */
+        #tappa-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn.prev {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .nav-btn.prev:hover {
+            background: #7f8c8d;
+        }
+        
+        .nav-btn.next {
+            background: #cfb997;
+            color: white;
+        }
+        
+        .nav-btn.next:hover {
+            background: #cfb997;
+            transform: translateX(5px);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Scrollbar */
+        #timeline-sidebar::-webkit-scrollbar,
+        #tappa-details::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #timeline-sidebar::-webkit-scrollbar-track,
+        #tappa-details::-webkit-scrollbar-track {
+            background: #000000
+        }
+        
+        #timeline-sidebar::-webkit-scrollbar-thumb,
+        #tappa-details::-webkit-scrollbar-thumb {
+            background: rgba(232, 232, 232, 0.5);
+            border-radius: 4px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #itinerary-view {
+                flex-direction: column;
+            }
+            
+            #timeline-sidebar {
+                width: 100%;
+                height: 150px;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            
+            .itinerari-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div id="navbar">
+        <h1>🏛️ Passeggiate Romane</h1>
+        <div id="nav-buttons">
+            <button onclick="showView('home')">Home</button>
+            <button id="back-to-itinerary-btn" onclick="showView('itinerary')" style="display:none;">Torna all'Itinerario</button>
+        </div>
+    </div>
+    
+    <!-- HOME VIEW: Selezione Itinerario -->
+    <div id="home-view" class="view active">
+        <h2>Itinerari Tematici</h2>
+        <p class="subtitle">Scopri Roma attraverso passeggiate culturali guidate da personaggi storici</p>
+        
+        <div id="itinerari-container" class="itinerari-grid">
+            <!-- Le card degli itinerari saranno generate dinamicamente -->
+        </div>
+    </div>
+    
+    <!-- ITINERARY VIEW: Visualizzazione Percorso -->
+    <div id="itinerary-view" class="view">
+        <!-- Timeline Sidebar -->
+        <div id="timeline-sidebar">
+            <div id="timeline-title">Timeline Itinerario</div>
+            <div id="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <div id="timeline-items">
+                <!-- Timeline items generati dinamicamente -->
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div id="itinerary-content">
+            <!-- Mappa -->
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <!-- Dettagli Tappa -->
+            <div id="tappa-details">
+                <div id="tappa-header">
+                    <div id="tappa-numero"></div>
+                    <div id="tappa-nome">
+                        <h2></h2>
+                        <p class="descrizione-breve"></p>
+                    </div>
+                    <div id="tappa-orario">
+                        <div class="time"></div>
+                        <div class="moment"></div>
+                    </div>
+                </div>
+                
+                <div id="tappa-content">
+                    <!-- Contenuto dinamico -->
+                </div>
+                
+                <div id="tappa-navigation">
+                    <button class="nav-btn prev" onclick="previousTappa()">← Tappa Precedente</button>
+                    <button class="nav-btn next" onclick="nextTappa()">Tappa Successiva →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // ========================================
+        // VARIABILI GLOBALI
+        // ========================================
+        let itinerariData = null;
+        let currentItinerario = null;
+        let currentTappaIndex = 0;
+        let map = null;
+        let markers = [];
+        let routeLine = null;
+        
+        // Icone momenti della giornata
+        const momentIcons = {
+            'alba': '🌅',
+            'mattino': '☀️',
+            'mezzogiorno': '🌞',
+            'pomeriggio': '🌤️',
+            'tramonto': '🌆',
+            'sera': '🌃'
+        };
+        
+        // ========================================
+        // INIZIALIZZAZIONE
+        // ========================================
+        async function init() {
+            console.log('🚀 Inizializzazione Passeggiate Romane...');
+            await loadItinerariData();
+            renderItinerariCards();
+        }
+        
+        // ========================================
+        // CARICAMENTO DATI
+        // ========================================
+        async function loadItinerariData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('File non trovato');
+                
+                const data = await response.json();
+                itinerariData = data.itinerari;
+                console.log(`✅ Caricati ${itinerariData.length} itinerari`);
+            } catch (error) {
+                console.error('❌ Errore caricamento:', error);
+                // Fallback: usa dati embedded
+                itinerariData = getEmbeddedItinerari();
+            }
+        }
+        
+        function getEmbeddedItinerari() {
+            // Versione semplificata embedded come fallback
+            return [{
+                id: "respighi_fontane",
+                nome: "Le Fontane di Roma",
+                sottotitolo: "Poema sinfonico di Ottorino Respighi",
+                personaggio: { nome: "Ottorino Respighi", anni: "1879-1936" },
+                descrizione: "Segui le note del poema sinfonico attraverso le fontane di Roma.",
+                durata_totale_ore: 8,
+                distanza_totale_km: 6.5,
+                tappe: [
+                    {
+                        numero: 1,
+                        nome: "Villa Giulia",
+                        coordinate: [41.9167, 12.4792],
+                        orario_consigliato: "06:00",
+                        momento_giornata: "alba",
+                        durata_visita_min: 45,
+                        descrizione_breve: "Fontana rinascimentale all'alba"
+                    }
+                ]
+            }];
+        }
+        
+        // ========================================
+        // RENDERING HOME
+        // ========================================
+        function renderItinerariCards() {
+            const container = document.getElementById('itinerari-container');
+            container.innerHTML = '';
+            
+            itinerariData.forEach(itinerario => {
+                const card = document.createElement('div');
+                card.className = 'itinerario-card';
+                card.onclick = () => startItinerario(itinerario.id);
+                
+                card.innerHTML = `
+<div class="card-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://www.lombardiabeniculturali.it/assets/immagini/liv2/S310RL/SC/S/D0080/01/S_D0080-01010_IMG-0000057198.jpg')">                        <div class="card-badge">${itinerario.tema || 'Culturale'}</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>${itinerario.nome}</h3>
+                        
+                        <p class="card-subtitle">${itinerario.sottotitolo || ''}</p>
+                        <p class="card-description">${itinerario.descrizione}</p>
+                        
+                        <div class="card-stats">
+                            <div class="stat">
+                                <div class="stat-value">⏱️ ${itinerario.durata_totale_ore}h</div>
+                                <div class="stat-label">Durata</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">📍 ${itinerario.tappe.length}</div>
+                                <div class="stat-label">Tappe</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">🚶 ${itinerario.distanza_totale_km}km</div>
+                                <div class="stat-label">Distanza</div>
+                            </div>
+                        </div>
+                        
+                        <button class="card-button">Inizia Passeggiata →</button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // ========================================
+        // START ITINERARIO
+        // ========================================
+        function startItinerario(itinerarioId) {
+            currentItinerario = itinerariData.find(it => it.id === itinerarioId);
+            if (!currentItinerario) return;
+            
+            currentTappaIndex = 0;
+            
+            showView('itinerary');
+            initMap();
+            renderTimeline();
+            loadTappa(0);
+        }
+        
+        // ========================================
+        // GESTIONE VIEWS
+        // ========================================
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`${viewName}-view`).classList.add('active');
+            
+            const backBtn = document.getElementById('back-to-itinerary-btn');
+            backBtn.style.display = viewName === 'itinerary' ? 'inline-block' : 'none';
+        }
+        
+        // ========================================
+        // MAPPA
+        // ========================================
+        function initMap() {
+            if (map) map.remove();
+            
+            map = L.map('map').setView([41.9028, 12.4964], 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '©️ OpenStreetMap'
+            }).addTo(map);
+            
+            drawRoute();
+            addMarkers();
+        }
+        
+       // Make sure to declare geoJsonLayer in the same outer scope as routeLine
+// let routeLine;
+// let geoJsonLayer; 
+let geoJsonLayer; // Dichiaralo fuori per poterlo rimuovere e aggiornare
+
+function drawRoute() {
+    fetch('map.geojson')
+        .then(response => {
+            if (!response.ok) throw new Error("Errore nel caricamento del file");
+            return response.json();
+        })
+        .then(data => {
+            // Rimuovi il vecchio layer GeoJSON per evitare sovrapposizioni
+            if (geoJsonLayer) {
+                map.removeLayer(geoJsonLayer);
+            }
+
+            // Crea il nuovo layer dal file GeoJSON
+            geoJsonLayer = L.geoJSON(data, {
+                
+                // 1. Applica lo stile SOLO alle LineString (i percorsi)
+                style: function (feature) {
+                    if (feature.geometry.type === 'LineString') {
+                        return {
+                            color: '#e74c3c',       // Rosso
+                            weight: 4,
+                            opacity: 0.7,
+                            dashArray: '10, 10',    // Tratteggio
+                            lineJoin: 'round'
+                        };
+                    }
+                },
+                
+                // 2. Personalizza i Punti (le tappe) se necessario
+                pointToLayer: function (feature, latlng) {
+                    // Di default Leaflet usa il marker blu classico. 
+                    // Se hai un'icona personalizzata (come il sole o il castello), inseriscila qui:
+                    return L.marker(latlng); 
+                },
+
+                // 3. Aggiungi i popup
+                onEachFeature: function (feature, layer) {
+                    if (feature.properties && feature.properties.name) {
+                        layer.bindPopup(feature.properties.name);
+                    }
+                }
+
+            }).addTo(map);
+
+            // Centra e zooma la mappa in modo che tutto il percorso sia visibile
+            map.fitBounds(geoJsonLayer.getBounds(), { padding: [50, 50] });
+        })
+        .catch(error => {
+            console.error("Errore durante il disegno del percorso:", error);
+        });
+}
+
+    
+        
+        function addMarkers() {
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+    
+    currentItinerario.tappe.forEach((tappa, index) => {
+        const icon = momentIcons[tappa.momento_giornata] || '📍';
+        
+        // Supponiamo che nel tuo oggetto 'tappa' ci sia una proprietà con l'URL dell'immagine.
+        // Se non c'è, usa un'immagine di default (placeholder).
+        const imageUrl = tappa.immagine_url || 'https://via.placeholder.com/40'; 
+        
+        const marker = L.marker(tappa.coordinate, {
+            icon: L.divIcon({
+                html: `
+                    <div style="position: relative; width: 120px; height: 120px;">
+                        <img src="${imageUrl}" 
+                             style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.4);" 
+                             alt="${tappa.nome}">
+                             
+                        <div style="position: absolute; bottom: 0px; right: 0px; font-size: 2em; background: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            ${icon}
+                        </div>
+                    </div>
+                `,
+                className: 'custom-marker',
+                
+                // 2. Nuova dimensione totale per Leaflet
+                iconSize: [100, 100], 
+                
+                // 3. Nuovi ancoraggi: centro in basso (metà di 100, tutto 100)
+                iconAnchor: [50, 100], 
+                
+                // 4. Il popup deve salire di 100px per non coprire l'immagine
+                popupAnchor: [0, -100] 
+            })
+        }).addTo(map);
+        
+        marker.bindPopup(`<b>Tappa ${tappa.numero}</b><br>${tappa.nome}`);
+        marker.on('click', () => loadTappa(index));
+        markers.push(marker);
+        
+    });
+}
+        
+        // ========================================
+        // TIMELINE
+        // ========================================
+        function renderTimeline() {
+            const container = document.getElementById('timeline-items');
+            container.innerHTML = '';
+            
+            currentItinerario.tappe.forEach((tappa, index) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                
+                if (index < currentTappaIndex) item.classList.add('completed');
+                else if (index === currentTappaIndex) item.classList.add('current');
+                else item.classList.add('upcoming');
+                
+                item.onclick = () => loadTappa(index);
+                
+                item.innerHTML = `
+                    <div class="timeline-icon">${momentIcons[tappa.momento_giornata]}</div>
+                    <div class="timeline-time">${tappa.orario_consigliato}</div>
+                    <div class="timeline-name">${tappa.nome}</div>
+                    <div class="timeline-duration">${tappa.durata_visita_min} min</div>
+                `;
+                
+                container.appendChild(item);
+            });
+            
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progress = ((currentTappaIndex + 1) / currentItinerario.tappe.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+        
+        // ========================================
+        // CARICA TAPPA
+        // ========================================
+        function loadTappa(index) {
+            currentTappaIndex = index;
+            const tappa = currentItinerario.tappe[index];
+            
+            // Header
+            document.getElementById('tappa-numero').textContent = `${tappa.numero}`;
+            document.querySelector('#tappa-nome h2').textContent = tappa.nome;
+            document.querySelector('#tappa-nome .descrizione-breve').textContent = tappa.descrizione_breve || '';
+            document.querySelector('#tappa-orario .time').textContent = tappa.orario_consigliato;
+            document.querySelector('#tappa-orario .moment').textContent = tappa.momento_giornata;
+            
+            // Content
+            renderTappaContent(tappa);
+            
+            // Timeline
+            renderTimeline();
+            
+            // Mappa: centra su tappa corrente
+            map.setView(tappa.coordinate, 16, { animate: true });
+            markers[index].openPopup();
+            
+            // Buttons
+            document.querySelector('.nav-btn.prev').disabled = index === 0;
+            document.querySelector('.nav-btn.next').disabled = index === currentItinerario.tappe.length - 1;
+        }
+        
+        function renderTappaContent(tappa) {
+            const container = document.getElementById('tappa-content');
+            container.innerHTML = '';
+            
+            // Storia e Curiosità
+            if (tappa.storia || tappa.curiosita) {
+                const storiaSec = document.createElement('div');
+                storiaSec.className = 'esperienza-section';
+                storiaSec.innerHTML = `
+                    <h3>📜 Storia e Curiosità</h3>
+                    ${tappa.storia ? `<p><strong>Storia:</strong> ${tappa.storia}</p>` : ''}
+                    ${tappa.curiosita ? `<p><strong>Curiosità:</strong> ${tappa.curiosita}</p>` : ''}
+                `;
+                container.appendChild(storiaSec);
+            }
+            
+            // Esperienza Culturale
+            if (tappa.esperienza_culturale) {
+                const exp = tappa.esperienza_culturale;
+                
+                // Musica
+                if (exp.musica) {
+                    const musicDiv = document.createElement('div');
+                    musicDiv.className = 'music-player';
+                    musicDiv.innerHTML = `
+                        <h4>🎵 ${exp.musica.movimento || 'Brano Musicale'}</h4>
+                        <audio controls>
+                            <source src="audio/${tappa.poi_id}.mp3" type="audio/mpeg">
+                            Il tuo browser non supporta l'audio.
+                        </audio>
+                        <div class="music-description">
+                            ${exp.musica.descrizione_musicale || ''}
+                        </div>
+                    `;
+                    container.appendChild(musicDiv);
+                }
+                
+                // Letteratura
+                if (exp.letteratura) {
+                    const litDiv = document.createElement('div');
+                    litDiv.className = 'citazione-box';
+                    litDiv.innerHTML = `
+                        <div class="citazione-text">"${exp.letteratura.citazione}"</div>
+                        <div class="citazione-author">— ${exp.letteratura.autore}, <em>${exp.letteratura.opera}</em> (${exp.letteratura.anno})</div>
+                    `;
+                    container.appendChild(litDiv);
+                }
+                
+                // Atmosfera
+                if (exp.atmosfera) {
+                    const atmDiv = document.createElement('div');
+                    atmDiv.className = 'esperienza-section';
+                    atmDiv.innerHTML = `
+                        <h3>🌤️ Atmosfera del Luogo</h3>
+                        <div class="atmosfera-grid">
+                            <div class="atmosfera-item">
+                                <div class="icon">💡</div>
+                                <div class="label">Luce</div>
+                                <div class="value">${exp.atmosfera.luce || 'N/A'}</div>
+                            </div>
+                            <div class="atmosfera-item">
+                                <div class="icon">🌡️</div>
+                                <div class="label">Temperatura</div>
+                                <div class="value">${exp.atmosfera.temperatura_stimata || 'N/A'}</div>
+                            </div>
+                            <div class="atmosfera-item">
+                                <div class="icon">👥</div>
+                                <div class="label">Affollamento</div>
+                                <div class="value">${exp.atmosfera.affollamento || 'N/A'}</div>
+                            </div>
+                            <div class="atmosfera-item">
+                                <div class="icon">😌</div>
+                                <div class="label">Emozione</div>
+                                <div class="value">${exp.atmosfera.emozione_target || 'N/A'}</div>
+                            </div>
+                        </div>
+                        ${exp.atmosfera.consiglio_fotografico ? `<p style="margin-top: 15px;"><strong>📸 Fotografia:</strong> ${exp.atmosfera.consiglio_fotografico}</p>` : ''}
+                    `;
+                    container.appendChild(atmDiv);
+                }
+            }
+        }
+        
+        // ========================================
+        // NAVIGAZIONE TAPPE
+        // ========================================
+        function previousTappa() {
+            if (currentTappaIndex > 0) {
+                loadTappa(currentTappaIndex - 1);
+            }
+        }
+        
+        function nextTappa() {
+            if (currentTappaIndex < currentItinerario.tappe.length - 1) {
+                loadTappa(currentTappaIndex + 1);
+            }
+        }
+        
+        // ========================================
+        // AVVIO
+        // ========================================
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

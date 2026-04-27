@@ -1,0 +1,334 @@
+{
+  "itinerari": [
+    {
+      "id": "Inquisizione",
+      "nome": "La Roma dell'inquisizione",
+      "sottotitolo": "La verità nascosta dietro le mura di potere",
+      "personaggio": {
+        "nome": "Giordano Bruno",
+        "anni": "1548-1600",
+        "professione": "Scrittore",
+        "nazionalita": "Italiana",
+        "biografia_breve": "Filosofo eretico e sostenitore dell'universo infinito, Bruno sfidò i dogmi della Chiesa identificando Dio con la natura stessa. Tradito e processato dall'Inquisizione romana, scelse di non abiurare le proprie idee, affrontando con fierezza il rogo in Campo de' Fiori il 17 febbraio 1600.",
+        "immagine": "assets/personaggi/respighi.jpg",
+        "opere_correlate": [
+          "La cena de le ceneri (1584)",
+          "De la causa, principio et uno (1584)",
+          "cabala del cavallo pegaseo (1585)"
+        ]
+      },
+      "tema": "Verità e censura",
+      "categoria": "Filosofia e cultura",
+      "durata_totale_ore": 8,
+      "difficolta": "facile",
+      "immagine_copertina": "https://images.unsplash.com/photo-1512100356132-db7f5c42f02e?q=80&w=400&h=200&auto=format&fit=crop",
+      "distanza_totale_km": 2.1,
+      "periodo_consigliato": "Primavera/Autunno (temperature miti)",
+      "stagione_migliore": ["marzo", "aprile", "maggio", "settembre", "ottobre"],
+      "descrizione": "Segui l'eco del pensiero proibito attraverso i luoghi che segnarono il destino del filosofo dell'infinito . Ogni tappa di questa passeggiata ripercorre i momenti cruciali del suo scontro con il dogma, dall'immensità delle sue visioni cosmiche fino all'oscurità del silenzio imposto.",
+      "note_logistiche": "Portare scarpe comode e acqua, il percorso è breve ma ricco di spunti di riflessione ",
+      "accessibilita": "Tutte le tappe sono accessibili a piedi con possibilità di soste caffè e aree relax lungo il percorso.",
+      "costo_stimato": "Gratuito ",
+      "tappe": [
+        {
+          "numero": 1,
+          "poi_id": "Campo_de_fiori",
+          "orario_consigliato": "10:30",
+          "momento_giornata": "mattino",
+          "immagine_url":"campo-dei-fiori.jpg",
+          "durata_visita_min": 60,
+          "coordinate": [41.8955, 12.4725],
+          "nome": "Campo dé fiori",
+          "descrizione_breve": "Il cuore ribelle della città dove il rogo di Bruno divenne l'alba del libero pensiero moderno.",
+          "indicazioni_arrivo": "Dalla Stazione Termini: Prendi le linee 40 (Espresso) o 64",
+          "esperienza_culturale": {
+            "musica": {
+              "movimento": "IV. La Befana",
+              "brano_completo": "Feste Romane - IV movimento",
+              "compositore": "Ottorino Respighi",
+              "durata_sec": 330,
+              "tonalita": "Re maggiore",
+              "organico": "Grande orchestra con organo, pianoforte e massiccia sezione di ottoni", 
+              "anno_composizione": 1928,
+              "descrizione_musicale": "Grande orchestra con organo, pianoforte e massiccia sezione di ottoni", 
+              "spotify_url": "https://open.spotify.com/track/1xCfPv9PH24ar8iPIScgBL",
+              "youtube_url": "https://www.youtube.com/watch?v=GgljJoPRYOI&list=RDGgljJoPRYOI&start_radio=1",
+              "note_ascolto": "Iniziare l'ascolto ai piedi della statua di Bruno, lasciando che il caos orchestrale si fonda con i rumori del mercato circostante"
+            },
+            "letteratura": {
+              "citazione": "Forse tremate più voi nel pronunciare questa sentenza che io nell'ascoltarla",
+              "autore": "Giordano Bruno",
+              "opera": "Parole pronunciate dinanzi ai giudici del Sant'Uffizio",
+              "anno": 1600,
+              "contesto": "La frase definitiva che segna il trionfo morale del filosofo sul tribunale inquisitorio, pronunciata pochi giorni prima del rogo di Campo de' Fiori."
+            },
+            "atmosfera": {
+              "momento": "mattino",
+              "luce": "bianca, intensa",
+              "suoni_ambiente": [
+                "rumore del mercato",
+                "il profumo dei fiori",
+                "brusio dei turisti"
+              ],
+              "temperatura_stimata": "16-18°C",
+              "affollamento": "elevato",
+              "consiglio_fotografico": "Usa la tecnica del punto di vista dal basso: posizionati ai piedi del basamento di Giordano Bruno e inquadra verso l'alto.",
+              "emozione_target": "Dissonanza eroica"
+            },
+            "arte_visiva": {
+              "stile_architettonico": "Medievale, Rinascimentale, Ottocentesca",
+              "architetti": ["Ettore Ferrari"],
+              "anno_costruzione": "1889",
+              "committente": "Comitato internazionale per il monumento a Giordano Bruno",
+              "descrizione": "Una piazza 'laica' priva di chiese dominanti, caratterizzata da una cortina edilizia spontanea che circonda il monumento in bronzo del filosofo, simbolo della libertà di pensiero contro l'oscurantismo."
+            }
+          },
+          "storia": "Anticamente un prato fiorito , la piazza divenne nel Rinascimento luogo di mercati e tragiche esecuzioni pubbliche. Il 17 febbraio 1600, vi fu arso vivo Giordano Bruno, condannato per eresia dall'Inquisizione dopo un processo durato sette anni.",
+          "curiosita": "La statua di Bruno, inaugurata nel 1889, è l'unico monumento di Roma rivolto 'di sfida' verso il Vaticano. Se osservi i rilievi sul basamento, troverai i volti di altri celebri eretici, trasformando la piazza in un pantheon del libero pensiero.",
+          "metadata": {
+            "accessibilita": "ingresso gratuito",
+            "orari_standard": "07:00-14:00",
+            "servizi": ["mercato", "forni storici", "caffetteria"]
+          }
+        },
+        {
+          "numero": 2,
+          "poi_id": "palazzo_della_cancelleria",
+          "orario_consigliato": "12:00",
+          "immagine_url":"cancelleria.jpg",
+          "momento_giornata": "mezzogiorno",
+          "durata_visita_min": 30,
+          "coordinate": [41.8964, 12.4717],
+          "nome": "palazzo della Cancelleria",
+          "descrizione_breve": "Il Palazzo della Cancelleria rappresenta l'imponente rigore del Rinascimento papale che osserva, silenzioso e austero, il disordine vitale e ribelle del mercato e della piazza di Bruno.",
+          "indicazioni_arrivo": "Da capo dé fiori procedi a piedi verso via dei Baullari, 2 minuti a piedi ",
+          "tempo_spostamento_da_tappa_precedente": {
+            "a_piedi": "2 min",
+            "metro": " ",
+            "distanza_km": 0.10
+          },
+          "esperienza_culturale": {
+            "musica": {
+              "movimento": "Il labirinto dei verbali",
+              "brano_completo": "Sinfonia n. 3 'Antigona' - Movimento II",
+              "compositore": "Arthur Honegger",
+              "durata_sec": 300,
+              "tonalita": "Dissonante",
+              "descrizione_musicale": "Un ritmo ossessivo e meccanico che evoca il rumore di una macchina burocratica incessante.",
+              "strumenti_protagonisti": ["archi in tremolo", "fagotti", "oboe solista"],
+              "carattere": "Inquietante, alienante, freddo",
+              "spotify_url": "https://open.spotify.com/track/5kYrcC7Vp0aQlZmNxdEzJE",
+              "youtube_url": "https://www.youtube.com/watch?v=TMamvhDYs3w&list=RDTMamvhDYs3w&start_radio=1",
+              "note_ascolto": "inizia l'ascolto quando ti trovi esattamente al centro del cortile di Bramante."
+            },
+            "letteratura": {
+              "citazione": "In quegli uffici, la verità dell'infinito veniva tradotta nel linguaggio finito dei sospetti e delle accuse, trasformando la carne in carta.",
+              "autore": "Anonimo contemporaneo (ispirato agli atti inquisitori)",
+              "opera": "Riflessioni sul Processo Bruno",
+              "anno": 2024,
+              "contesto": "La descrizione del processo di trasformazione di un'idea filosofica in un reato giuridico."
+            },
+            "atmosfera": {
+              "momento": "tarda mattinata",
+              "luce": "spietata, che elimina le ombre nel cortile",
+              "suoni_ambiente": [
+                "passi che rimbombano sul marmo",
+                "brusio ovattato degli uffici",
+                "voci di passanti e turisti"
+              ],
+              "temperatura_stimata": "22-25°C",
+              "affollamento": "minimo (ambiente istituzionale)",
+              "consiglio_fotografico": "Sfruttare la prospettiva del doppio loggiato per creare un senso di ripetizione infinita.",
+              "emozione_target": "Inquietudine e Alienazione"
+            },
+            "arte_visiva": {
+              "stile_architettonico": "Rinascimento Classico",
+              "scultore": "Donato Bramante , Andrea Bregno",
+              "anno_costruzione": "1489-1513",
+              "committente": "Cardinale Raffaele Riario",
+              "materiali": "Travertino di recupero (dal Colosseo) e granito egizio",
+              "altezza_m": 24,
+              "descrizione": "Facciata a bugnato liscio con lesene accoppiate; il cortile interno presenta un doppio ordine di colonne doriche e ioniche di estrema eleganza e rigore."
+            }
+          },
+          "storia": "Antica sede della Cancelleria Apostolica e del tribunale della Sacra Rota. Durante il processo a Bruno, rappresentava la macchina amministrativa che gestiva le indagini e i documenti legali della Chiesa.",
+          "curiosita": "Il palazzo è costruito con il travertino sottratto al Colosseo: la Roma cristiana che si edifica letteralmente sulle ossa della Roma pagana, proprio come il dogma cercava di sovrapporsi alla filosofia naturale.",
+          "metadata": {
+            "accessibilita": "esterno libero; cortile visitabile in orario d'ufficio",
+            "orari_standard": "09:00-19:00",
+            "servizi": ["mostra macchine di Leonardo", "zona pedonale", "vicinanza taxi"]
+          }
+        },
+        {
+          "numero": 3,
+          "poi_id": "piazza_minerva",
+          "orario_consigliato": "15:30",
+          "momento_giornata": "pomeriggio",
+          "immagine_url":"minerva.jpg",
+          "durata_visita_min": 60,
+          "coordinate": [41.8978, 12.4775],
+          "nome": "Piazza della Minerva",
+          "descrizione_breve": "Il quartier generale dell'Inquisizione: un teatro di pietra dove il dogma ha preteso di processare l'infinito.",
+          "indicazioni_arrivo": "Da Palazzo della Cancelleria: 8 min a piedi (650m) percorrendo Corso Vittorio Emanuele II e svoltando verso il Pantheon.",
+          "tempo_spostamento_da_tappa_precedente": {
+            "a_piedi": "9 min",
+            "distanza_km": 0.70
+          },
+          "esperienza_culturale": {
+            "musica": {
+              "movimento": "Dies Irae (Il giorno del giudizio)",
+              "brano_completo": "Requiem - Dies Irae",
+              "compositore": "Giuseppe Verdi",
+              "durata_sec": 140,
+              "tonalita": "Sol minore",
+              "descrizione_musicale": "Un'esplosione di archi e colpi di grancassa che evocano il terrore del giudizio divino.",
+              "citazioni_famose": "Simbolo universale della potenza del destino e del timore reverenziale.",
+              "carattere": "Drammatico, Terribile, Incalzante",
+              "spotify_url": "https://open.spotify.com/track/4jxFPxTcL1UF89OU9t8P58",
+              "youtube_url": "https://www.youtube.com/watch?v=up0t2ZDfX7E&list=RDup0t2ZDfX7E&start_radio=1",
+              "note_ascolto": "Inizia l'ascolto quando ti trovi di fronte alla facciata della chiesa. Senti il peso della pietra sotto i colpi di timpano."
+            },
+            "letteratura": {
+              "citazione": "Qui la ragione fu messa in catene e l'universo infinito di Bruno fu ridotto a un errore da emendare con il fuoco.",
+              "autore": "Rielaborazione storica",
+              "opera": "Memorie del Santo Uffizio",
+              "anno": 1600,
+              "contesto": "La descrizione del clima di terrore intellettuale che si respirava durante le letture pubbliche delle sentenze."
+            },
+            "cinema": {
+              "film": "Galileo",
+              "regista": "Liliana Cavani",
+              "anno": 1968,
+              "scena": "L'abiura di Galileo Galilei",
+              "descrizione": "Il film ricostruisce il processo a Galileo, avvenuto proprio nel convento della Minerva, evidenziando il conflitto tra scienza e fede."
+            },
+            "atmosfera": {
+              "momento": "pomeriggio",
+              "luce": "ombre lunghe che iniziano a tagliare la piazza",
+              "suoni_ambiente": [
+                "eco di voci che rimbalzano tra le pareti strette",
+                "campane della chiesa che battono l'ora",
+                "brusio dei turisti diretti al Pantheon"
+              ],
+              "temperatura_stimata": "22-24°C",
+              "affollamento": "medio-alto (flusso verso il Pantheon)",
+              "consiglio_fotografico": "Inquadrare l'obelisco del Pulcino della Minerva con la facciata della chiesa per catturare il contrasto tra la grazia di Bernini e la storia cupa del luogo.",
+              "emozione_target": "Tensione e Sdegno"
+            },
+            "arte_visiva": {
+              "stile_architettonico": "Gotico (interno) e Rinascimentale (facciata)",
+              "architetto": "Frati Domenicani",
+              "scultori": ["Gian Lorenzo Bernini"],
+              "anno_costruzione": "1280 (chiesa), 1667 (elefante)",
+              "committente": "Papa Alessandro VII (per l'elefante)",
+              "descrizione": "L'unica chiesa gotica di Roma. In piazza, l'elefantino di Bernini sorregge un obelisco egizio, simboleggiando la sapienza divina che sostiene il mondo."
+            }
+          },
+          "storia": "Sede del convento dei Domenicani e quartier generale del Sant'Uffizio. Qui vennero celebrati i processi più famosi della storia, inclusi quelli a Giordano Bruno e Galileo Galilei.",
+          "curiosita": "L'elefantino di Bernini rivolge il 'didietro' verso il convento dei Domenicani: si dice sia stato un piccolo sberleffo dell'artista verso i frati che avevano ostacolato il suo progetto originale.",
+          "leggende": [
+            "L'abiura segreta: si dice che i fantasmi dei condannati sussurrino ancora verità proibite tra le navate gotiche."
+          ],
+          "metadata": {
+            "accessibilita": "piazza libera; chiesa e convento soggetti a orari",
+            "orari_standard": "08:00-19:00",
+            "servizi": ["biblioteca Casanatense", "hotel di lusso", "vicinanza al Pantheon"],
+            "warning": "Rispetto del silenzio all'interno della chiesa"
+          }
+        },
+        {
+          "numero": 4,
+          "poi_id": "castel_sant_angelo",
+          "orario_consigliato": "18:00",
+          "momento_giornata": "tramonto",
+          "immagine_url":"castel-santangelo.jpg",
+          "durata_visita_min": 45,
+          "coordinate": [41.9031, 12.4663],
+          "nome": "Castel Sant'Angelo",
+          "descrizione_breve": "Simbolo della Chiesa che si fa Stato e prigione, la mole del Castello chiude il percorso con il peso della pietra e il silenzio della cella.",
+          "indicazioni_arrivo": "Da Piazza della Minerva: 23 min a piedi (1.7 km) attraversando Corso Vittorio Emanuele II e percorrendo Via del Banco di Santo Spirito fino a Ponte Sant'Angelo.",
+          "tempo_spostamento_da_tappa_precedente": {
+            "a_piedi": "23 min",
+            "distanza_km": 1.7
+          },
+          "esperienza_culturale": {
+            "musica": {
+              "movimento": "E lucevan le stelle (Atto III)",
+              "brano_completo": "Tosca",
+              "compositore": "Giacomo Puccini",
+              "durata_sec": 180,
+              "tonalita": "Si minore",
+              "descrizione_musicale": "Un'aria di struggente disperazione e addio alla vita, composta proprio per essere ambientata sugli spalti di questo castello. Il clarinetto introduce un tema di infinita malinconia che riflette l'ultima notte di un condannato, evocando il medesimo senso di smarrimento provato da Bruno nelle carceri inquisitorie.",
+              "carattere": "Disperato, Elegiaco, Opprimente",
+              "citazioni_famose": "Considerato il movimento più poetico di tutta la trilogia romana di Respighi",
+              "spotify_url": "https://open.spotify.com/track/77jtRwmEIXGog0tPfQTcsV",
+              "youtube_url": "https://www.youtube.com/watch?v=UuQdEyz6b6w&list=RDUuQdEyz6b6w&start_radio=1",
+              "note_ascolto": "Ascolta mentre attraversi il ponte. Il climax dell'orchestra deve coincidere con la vista della mole scura contro il cielo del tramonto."
+            },
+            "letteratura": {
+              "citazione": "Le mura di questa fortezza non racchiudono solo uomini, ma tentano di imprigionare l'infinito che quegli uomini hanno osato pensare.",
+              "autore": "Victor Hug (rielaborato)",
+              "opera": "Note su Roma",
+              "anno": 1850,
+              "contesto": "Riflessione sulla potenza delle carceri papali come strumento di controllo del pensiero."
+            },
+            "atmosfera": {
+              "momento": "tramonto",
+              "luce": "ombre violacee e blu profonde; la mole del castello diventa una silhouette nera contro il cielo",
+              "suoni_ambiente": [
+                "lo scorrere sordo del Tevere sotto il ponte",
+                "gridare dei gabbiani",
+                "rumore lontano del traffico urbano che sembra svanire",
+                "il vento che soffia tra le statue degli angeli"
+              ],
+              "temperatura_stimata": "18-20°C",
+              "affollamento": "medio (passeggio serale sul ponte)",
+              "vista_panoramica": "Il profilo di San Pietro e le luci che si accendono sul Tevere",
+              "consiglio_fotografico": "Catturare la silhouette del castello dal centro di Ponte Sant'Angelo durante la 'blue hour",
+              "emozione_target": "Oppressione e Smarrimento"
+            },
+            "arte_visiva": {
+              "stile_architettonico": "Romano/Medievale/Rinascimentale",
+              "architetto": "Demetriano (Mausoleo), Giovanni di Giacomo, Giuliano da Sangallo",
+              "anno_costruzione": "135 d.C.",
+              "committente": "Imperatore Adriano / Vari Pontefici",
+              "descrizione": "Nato come tomba imperiale, trasformato in fortezza inespugnabile e residenza papale di emergenza, collegato al Vaticano tramite il Passetto di Borgo." 
+            }
+          },
+          "storia": "Sebbene Bruno sia stato rinchiuso principalmente nelle carceri di Tor di Nona e del Palazzo del Sant'Uffizio, Castel Sant'Angelo resta il simbolo universale del potere coercitivo della Chiesa-Stato che ha stritolato la sua esistenza.",
+          "curiosita": "All'interno si trovano le 'prigioni storiche' dove furono rinchiusi anche Benvenuto Cellini e Beatrice Cenci. La mole del castello serviva da monito visivo costante per chiunque osasse sfidare l'autorità del Papa.",
+          "connessione_bruno": "Il percorso si chiude qui perché il castello rappresenta la 'chiusura' fisica e mentale: la pietra che tenta di ingabbiare il fuoco dello spirito. È la sproporzione finale tra la fragilità di un uomo e l'imponenza dell'istituzione.",
+          "metadata": {
+            "accessibilita": "ingresso a pagamento (€15); esterno e ponte sempre liberi",
+            "orari_standard": "09:00-19:30", 
+            "servizi": ["caffetteria panoramica", "servizi igienici", "audioguide"]
+          }
+        }
+      ],
+      "mappa_percorso": {
+        "polyline_encoded": "esempio_encoded_string",
+        "colore_percorso": "#e74c3c",
+        "stile_linea": "dashed"
+      },
+      "consigli_pratici": [
+        "Portare bottiglia d'acqua riutilizzabile (fontanelle romane lungo il percorso)",
+        "Scarpe comode (2.5 km a piedi)",
+        "Cappello e crema solare per mezzogiorno",
+        "Cuffie di buona qualità per ascoltare la musica",
+        "Prenotare in anticipo Castel Sant'Angelo",
+        "Considerare pausa pranzo dopo palazzo della Cancelleria (molti ristoranti in zona)"
+      ],
+      "migliore_periodo_anno": "Marzo-Maggio o Settembre-Ottobre (luce migliore, temperature miti)",
+      "sconsigliato": ["Piena estate (troppo caldo a mezzogiorno)", "Gennaio-Febbraio (freddo e tramonto anticipato)"],
+      "cosa_portare": [
+        "Smartphone con app mappe",
+        "Cuffie/auricolari",
+        "Bottiglia acqua",
+        "Cappello",
+        "Crema solare",
+        "Snack energetici",
+        "Batteria portatile"
+      ]
+    }
+  ]
+}
